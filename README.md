@@ -16,3 +16,5 @@ pour voir l'application
 
 › Press w │ open web
 npx expo install react-native-web@~0.18.7 react-dom@18.0.0 @expo/webpack-config@^0.17.0
+
+https://reactnative.dev/docs/intro-react-native-components
