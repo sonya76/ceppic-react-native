@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   ScrollView,
+  Image,
 } from "react-native";
 
 export default function App() {
@@ -22,6 +23,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require("./assets/link.png")}
+        style={{ width: 100, height: 100 }}
+      />
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="nouveau lien"
@@ -46,10 +52,11 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    height: 400,
+    margin: 60,
   },
   StyleTexte: {
     color: "red",
@@ -61,9 +68,10 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   lienContainer: {
+    width: 300,
     height: 80,
-    borderColor: "green",
-    borderWidth: 2,
+    borderColor: "gray",
+    borderWidth: 1
   },
   inputContainer: {
     flex: 1,
