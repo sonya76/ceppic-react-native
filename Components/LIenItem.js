@@ -1,10 +1,12 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 
 export default function LienItem(props) {
   return (
-    <View style={styles.lienItem}>
-      <Text style={styles.lienText}>{props.truc}</Text>
-    </View>
+    <Pressable onPress={props.onSupprimerItem.bind(this, props.id)}>
+      <View style={styles.lienItem}>
+        <Text style={styles.lienText}>{props.text}</Text>
+      </View>
+    </Pressable>
   );
 }
 
@@ -16,5 +18,5 @@ const styles = StyleSheet.create({
   },
   lienText: {
     color: "green",
-  }
+  },
 });

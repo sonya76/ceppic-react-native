@@ -1,18 +1,23 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, Image, FlatList, } from "react-native";
+import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import LienInput from "./Components/LienInput";
 import LienItem from "./Components/LIenItem";
 
-
 export default function App() {
-  
   const [listeLiens, SetListeLiens] = useState([]);
 
   function ajoutLienHandler(lienTextSaisie) {
     SetListeLiens((currentListeLiens) => [
       ...currentListeLiens,
-      { text: lienTextSaisie, key: Math.random().toString() },
+      { text: lienTextSaisie, id: Math.random().toString() },
     ]);
+  }
+
+  function supprimerLienHandler(id) {
+    SetListeLiens((currentListeLiens) => {
+      return currentListeLiens.filter((lien) => lien.id !== id);
+    });
+
   }
 
   return (
@@ -33,7 +38,13 @@ export default function App() {
             return item.id;
           }}
           renderItem={(itemData) => {
-            return <LienItem truc={itemData.item.text} />;
+            return (
+              <LienItem
+                text={itemData.item.text}
+                id={itemData.item.id}
+                onSupprimerItem={supprimerLienHandler}
+              />
+            );
           }}
         />
       </View>
