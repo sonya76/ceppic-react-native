@@ -7,6 +7,8 @@ import {
   Button,
   ScrollView,
   Image,
+  SafeAreaView,
+  FlatList,
 } from "react-native";
 
 export default function App() {
@@ -14,9 +16,13 @@ export default function App() {
   const [listeLiens, SetListeLiens] = useState([]);
 
   function ajoutLienHandler() {
-    SetListeLiens([...listeLiens, lienTextSaisie]);
+    SetListeLiens((currentListeLiens) => [
+      ...listeLiens,
+      { text: lienTextSaisie, key: Math.random().toString() },
+    ]);
     SetLientexteSaisie("");
   }
+
   function lienInputHandler(textSaisie) {
     SetLientexteSaisie(textSaisie);
   }
@@ -38,13 +44,23 @@ export default function App() {
 
         <Button title="Ajouter un lien" onPress={ajoutLienHandler} />
       </View>
+
       <View style={styles.lienContainer}>
         <Text> Liste des liens ...</Text>
-        <ScrollView>
-          {listeLiens.map((lien) => (
-            <Text key={lien}>{lien}</Text>
-          ))}
-        </ScrollView>
+
+        <FlatList
+          data={listeLiens}
+          keyExtractor={(item, index) => {
+            return item.id;
+          }}
+          renderItem={(itemData) => {
+            return (
+              <View style={styles.lienItem}>
+                <Text>{itemData.item.text}</Text>
+              </View>
+            );
+          }}
+        />
       </View>
     </View>
   );
@@ -71,7 +87,12 @@ const styles = StyleSheet.create({
     width: 300,
     height: 80,
     borderColor: "gray",
-    borderWidth: 1
+    borderWidth: 1,
+  },
+  lienItem: {
+    backgroundColor: "#c1dec9",
+    padding: 5,
+    marginTop: 2,
   },
   inputContainer: {
     flex: 1,
