@@ -1,30 +1,18 @@
 import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  ScrollView,
-  Image,
-  SafeAreaView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Text, View, Image, FlatList, } from "react-native";
+import LienInput from "./Components/LienInput";
+import LienItem from "./Components/LIenItem";
+
 
 export default function App() {
-  const [lienTextSaisie, SetLientexteSaisie] = useState("");
+  
   const [listeLiens, SetListeLiens] = useState([]);
 
-  function ajoutLienHandler() {
+  function ajoutLienHandler(lienTextSaisie) {
     SetListeLiens((currentListeLiens) => [
-      ...listeLiens,
+      ...currentListeLiens,
       { text: lienTextSaisie, key: Math.random().toString() },
     ]);
-    SetLientexteSaisie("");
-  }
-
-  function lienInputHandler(textSaisie) {
-    SetLientexteSaisie(textSaisie);
   }
 
   return (
@@ -34,16 +22,7 @@ export default function App() {
         style={{ width: 100, height: 100 }}
       />
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="nouveau lien"
-          onChangeText={lienInputHandler}
-          value={lienTextSaisie}
-          style={styles.inputLien}
-        />
-
-        <Button title="Ajouter un lien" onPress={ajoutLienHandler} />
-      </View>
+      <LienInput ajoutLien={ajoutLienHandler} />
 
       <View style={styles.lienContainer}>
         <Text> Liste des liens ...</Text>
@@ -54,11 +33,7 @@ export default function App() {
             return item.id;
           }}
           renderItem={(itemData) => {
-            return (
-              <View style={styles.lienItem}>
-                <Text>{itemData.item.text}</Text>
-              </View>
-            );
+            return <LienItem truc={itemData.item.text} />;
           }}
         />
       </View>
@@ -88,11 +63,6 @@ const styles = StyleSheet.create({
     height: 80,
     borderColor: "gray",
     borderWidth: 1,
-  },
-  lienItem: {
-    backgroundColor: "#c1dec9",
-    padding: 5,
-    marginTop: 2,
   },
   inputContainer: {
     flex: 1,
